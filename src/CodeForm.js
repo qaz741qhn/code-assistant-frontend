@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { languages } from "./languages";
 import axios from "axios";
-import { Form, Select, Button, CodeBlock } from "./styled";
+import { Form, Select, Button, CodeContainer, CodeBlock } from "./styled";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -81,15 +81,20 @@ function CodeForm() {
       <Button type="submit" disabled={loading}>
         Generate Code
       </Button>
-      <CodeBlock>
-        <SyntaxHighlighter language={language.toLowerCase()} style={nightOwl}>
-          {loading
-            ? loadingMessage
-            : response
-            ? response.generated_code
-            : "Your code will be displayed here."}
-        </SyntaxHighlighter>
-      </CodeBlock>
+      <CodeContainer>
+        <CodeBlock>
+          <SyntaxHighlighter
+            language={language.toLowerCase()}
+            style={nightOwl}
+          >
+            {loading
+              ? loadingMessage
+              : response
+              ? response.generated_code
+              : "Your code will be displayed here."}
+          </SyntaxHighlighter>
+        </CodeBlock>
+      </CodeContainer>
     </Form>
   );
 }
