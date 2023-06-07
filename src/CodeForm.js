@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { languages } from "./languages";
 import axios from "axios";
 import { Form, Select, Button, CodeContainer, CodeBlock } from "./styled";
+import Modal from "./Modal";
+import {useLoadingDots} from "./useHooks";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -11,31 +13,37 @@ function CodeForm() {
   const [response, setResponse] = useState("");
   const [languageCapabilities, setLanguageCapabilities] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState("Please wait a moment");
-  useEffect(() => {
-    let intervalId;
-    if (loading) {
-      let dotCount = 0;
-      intervalId = setInterval(() => {
-        dotCount = (dotCount + 1) % 7;
-        setLoadingMessage(`Please wait a moment${".".repeat(dotCount)}`);
-      }, 500);
-    } else {
-      setLoadingMessage("");
-    }
-    return () => clearInterval(intervalId);
-  }, [loading]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const loadingMessage = useLoadingDots("Generating");
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
     setResponse("");
-    const result = await axios.post("https://code-assistant-backend.herokuapp.com/generate", {
-      operation: operation,
-      language: language.toLowerCase(),
-    });
-    setResponse(result.data);
-    setLoading(false);
+    try {
+      const result = await axios.post(
+        "https://code-assistant-backend.herokuapp.com/generate",
+        {
+          operation: operation,
+          language: language.toLowerCase(),
+        }
+      );
+      setLoading(false);
+      if (result.status === 200) {
+        setResponse(result.data);
+        toggleModal();
+      } else {
+        setResponse("Error: The server responded with status 500");
+      }
+    } catch (error) {
+      setLoading(false);
+      setResponse(`Error: ${error}`);
+    }
   };
 
   useEffect(() => {
@@ -81,20 +89,29 @@ function CodeForm() {
       <Button type="submit" disabled={loading}>
         Generate Code
       </Button>
-      <CodeContainer>
-        <CodeBlock>
-          <SyntaxHighlighter
-            language={language.toLowerCase()}
-            style={nightOwl}
-          >
-            {loading
-              ? loadingMessage
-              : response
-              ? response.generated_code
-              : "Your code will be displayed here."}
-          </SyntaxHighlighter>
-        </CodeBlock>
-      </CodeContainer>
+      {!isModalOpen && (
+        <CodeContainer>
+          <CodeBlock>
+            <SyntaxHighlighter
+              language={language.toLowerCase()}
+              style={nightOwl}
+            >
+              {loading
+                ? loadingMessage
+                : response
+                ? response.generated_code
+                : "Your code will be displayed here."}
+            </SyntaxHighlighter>
+          </CodeBlock>
+        </CodeContainer>
+      )}
+      <Modal isOpen={isModalOpen} onClose={toggleModal} copyText={response.generated_code}>
+        <SyntaxHighlighter language={language.toLowerCase()} style={nightOwl}>
+          {loading
+            ? loadingMessage
+            : response.generated_code}
+        </SyntaxHighlighter>
+      </Modal>
     </Form>
   );
 }

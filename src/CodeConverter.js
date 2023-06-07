@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Form, TextArea, Button, Select, RowContainer, ButtonContainer, MessageContainer, FixedContainer } from './styled';
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
-import useLoadingDots from './useHooks';
+import {useLoadingDots} from './useHooks';
 import Modal from './Modal';
 
 const CodeConverter = () => {
@@ -38,17 +38,21 @@ const CodeConverter = () => {
 
   const handleConvertCode = async (event) => {
     event.preventDefault();
-    console.log(targetLanguage);
     setConverting(true);
     try {
       const response = await axios.post("https://code-assistant-backend.herokuapp.com/convert_code", { source_code: sourceCode, target_language: targetLanguage });
-      setConvertedCode(response.data.converted_code);
+      if (response.status === 200) {
+        setConvertedCode(response.data.converted_code);
+        toggleModal();
+      } else {
+        setConvertedCode("Error converting code: Server responded with status 500");
+      }
     } catch (error) {
       console.error("Error converting code: ", error);
+      setConvertedCode(`Error converting code: ${error}`);
     }
     setConverting(false);
-    toggleModal();
-  };
+  };  
 
   return (
     <Form>
@@ -73,7 +77,7 @@ const CodeConverter = () => {
             {converting && <p>{convertingMessage}</p>}
           </FixedContainer>
         </ButtonContainer>
-        <Modal isOpen={isModalOpen} onClose={toggleModal}>
+        <Modal isOpen={isModalOpen} onClose={toggleModal} copyText={convertedCode}>
           <SyntaxHighlighter language={targetLanguage.toLowerCase()} style={nightOwl}>
             {convertedCode
               ? convertedCode

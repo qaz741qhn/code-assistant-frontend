@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useLoadingDots = (initialMessage) => {
+export const useLoadingDots = (initialMessage) => {
   const [message, setMessage] = useState(initialMessage);
 
   useEffect(() => {
@@ -16,5 +16,3 @@ const useLoadingDots = (initialMessage) => {
 
   return message;
 };
-
-export default useLoadingDots;

@@ -157,6 +157,8 @@ export const ModalContent = styled.div`
   padding: 20px;
   border-radius: 4px;
   max-width: 500px;
+  max-height: 500px;
+  overflow-y: auto;
   @media (max-width: 600px) {
     max-width: 90%;
     max-height: 80%;
@@ -177,7 +179,6 @@ text-align: center;
 
 export const Nav = styled.nav`
   background-color: rgb(97, 218, 251, 0.2);
-  color: #abb2bf;
   padding: 10px 20px;
   margin-bottom: 20px;
   display: flex;
@@ -194,7 +195,7 @@ export const Nav = styled.nav`
 
 export const NavItem = styled(Link)`
   text-decoration: none;
-  color: #abb2bf;
+  color: white;
   margin-left: 20px;
   padding: 10px 20px;
   &:hover {
@@ -224,4 +225,10 @@ export const FooterContainer = styled.footer`
   @media (max-width: 600px) {
     font-size: 12px; 
   }
+`;
+
+export const ModalButtons = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 `;

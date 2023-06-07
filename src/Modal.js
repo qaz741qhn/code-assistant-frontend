@@ -1,8 +1,19 @@
+import React, { useState, useEffect } from "react";
+import { ModalContainer, ModalContent, Button, ModalButtons } from "./styled";
 
-import React from "react";
-import { ModalContainer, ModalContent, Button } from "./styled";
+const Modal = ({ isOpen, onClose, children, copyText }) => {
+  const [copied, setCopied] = useState(false);
+  
+  const handleCopy = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    navigator.clipboard.writeText(copyText);
+    setCopied(true);
+  };
 
-const Modal = ({ isOpen, onClose, children }) => {
+  useEffect(() => {
+    setCopied(false);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -10,7 +21,12 @@ const Modal = ({ isOpen, onClose, children }) => {
     <ModalContainer>
       <ModalContent>
         {children}
-        <Button onClick={onClose}>Close</Button>
+        <ModalButtons>
+          <Button onClick={handleCopy} style={copied ? { backgroundColor: "#abb2bf", color: "white" } : {}}>
+            {copied ? "Copied!" : "Copy"}
+          </Button>
+          <Button onClick={onClose}>Close</Button>
+        </ModalButtons>
       </ModalContent>
     </ModalContainer>
   );
