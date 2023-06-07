@@ -30,7 +30,7 @@ function CodeForm() {
     event.preventDefault();
     setLoading(true);
     setResponse("");
-    const result = await axios.post("http://localhost:3000/generate", {
+    const result = await axios.post("https://code-assistant-backend.herokuapp.com/generate", {
       operation: operation,
       language: language.toLowerCase(),
     });
@@ -41,7 +41,7 @@ function CodeForm() {
   useEffect(() => {
     const fetchLanguageCapabilities = async () => {
       const result = await axios.get(
-        `http://localhost:3000/capabilities?language=${language.toLowerCase()}`
+        `https://code-assistant-backend.herokuapp.com/capabilities?language=${language.toLowerCase()}`
       );
       setLanguageCapabilities(result.data.capabilities);
     };

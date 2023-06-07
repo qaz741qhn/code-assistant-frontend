@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const Nav = styled.nav`
-  background-color: rgb(1, 22, 39);
+  background-color: rgb(97, 218, 251, 0.2);
   color: #abb2bf;
   padding: 10px 20px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -23,7 +24,7 @@ const NavItem = styled(Link)`
   margin-left: 20px;
   padding: 10px 20px;
   &:hover {
-    background-color: #282c34;
+    background-color: rgb(1, 22, 39);
     color: #61dafb;
   }
   &:disabled {

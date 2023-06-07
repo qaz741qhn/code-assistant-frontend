@@ -27,7 +27,7 @@ const CodeConverter = () => {
     event.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:3000/detect_available_languages", { source_code: sourceCode });
+      const response = await axios.post("https://code-assistant-backend.herokuapp.com/detect_available_languages", { source_code: sourceCode });
       setDetectedLanguage(response.data.detected_language);
       setAvailableLanguages(response.data.available_languages);
     } catch (error) {
@@ -41,7 +41,7 @@ const CodeConverter = () => {
     console.log(targetLanguage);
     setConverting(true);
     try {
-      const response = await axios.post("http://localhost:3000/convert_code", { source_code: sourceCode, target_language: targetLanguage });
+      const response = await axios.post("https://code-assistant-backend.herokuapp.com/convert_code", { source_code: sourceCode, target_language: targetLanguage });
       setConvertedCode(response.data.converted_code);
     } catch (error) {
       console.error("Error converting code: ", error);
