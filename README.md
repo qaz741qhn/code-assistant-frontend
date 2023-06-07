@@ -1,35 +1,28 @@
-# Code Assistant Frontend
+# Code Assistant
 
-Code Assistant Frontend is a React application that provides an interface for users to generate programming code. It interacts with the Code Assistant API to obtain generated code.
+Welcome to Code Assistant! This application consists of two main features: Code Generator and Code Converter. You can access these features through the following URLs:
 
-## Getting Started
+- Code Generator: [https://code-assistant-frontend.vercel.app/generator](https://code-assistant-frontend.vercel.app/generator)
+- Code Converter: [https://code-assistant-frontend.vercel.app/converter](https://code-assistant-frontend.vercel.app/converter)
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+## Features
 
-### Prerequisites
+### Code Generator 💎
+The Code Generator helps users to generate boilerplate code for different programming languages. Just select your preferred language and see the magic!
 
-- Node.js 14.15.1 or later
-- npm 6.14.8 or later
+### Code Converter 🔄
+The Code Converter enables users to convert their source code from one programming language to another. Simply paste your source code, select the target language, and let our Code Converter do the rest!
 
-### Installation
+## Deployment
+The frontend of the Code Assistant is hosted on [Vercel](https://vercel.com/).
 
-1. Clone the repository
-    ```
-    git clone https://github.com/qaz741qhn/code-assistant-frontend.git
-    ```
+The backend of the Code Assistant is hosted on [Heroku](https://www.heroku.com/).
 
-2. Install React dependencies
-    ```
-    cd code-assistant-frontend
-    npm install
-    ```
+## Contributing
+Any contributions you make are greatly appreciated.
 
-3. Run the React server
-    ```
-    npm start
-    ```
-
-## Usage
-
-Enter a prompt in the text area and click 'Generate Code'. The application will generate a relevant code snippet which will be displayed below the form.
-
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request

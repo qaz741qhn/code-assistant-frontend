@@ -18,7 +18,7 @@ function Header() {
   let headerText;
   switch (location.pathname) {
     case "/converter":
-      headerText = "Code Converter 💼";
+      headerText = "Code Converter 🔄";
       break;
     default:
       headerText = "Code Generator 💎";
