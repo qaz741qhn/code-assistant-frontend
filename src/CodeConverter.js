@@ -63,9 +63,10 @@ const CodeConverter = () => {
           placeholder="Paste your source code here..."
         />
         <ButtonContainer>
-          <Button onClick={handleDetectLanguageAndAvailableLanguages} disabled={loading}>Detect Language</Button>
+          <Button onClick={handleDetectLanguageAndAvailableLanguages} disabled={loading}>
+            {loading ? loadingMessage : 'Detect Language'}
+          </Button>
           <MessageContainer>
-            {loading && <p>{loadingMessage}</p>}
             {!loading && detectedLanguage && <p>Detected language: {detectedLanguage}</p>}
           </MessageContainer>
           <FixedContainer visible={!!detectedLanguage}>
@@ -73,8 +74,9 @@ const CodeConverter = () => {
               <option value="">Please select</option>
               {availableLanguages.map(lang => <option key={lang} value={lang}>{lang}</option>)}
             </Select>
-            <Button onClick={handleConvertCode} disabled={converting}>Convert Code</Button>
-            {converting && <p>{convertingMessage}</p>}
+            <Button onClick={handleConvertCode} disabled={converting}>
+              {converting ? convertingMessage : 'Convert'}
+            </Button>
           </FixedContainer>
         </ButtonContainer>
         <Modal isOpen={isModalOpen} onClose={toggleModal} copyText={convertedCode}>

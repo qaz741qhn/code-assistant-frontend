@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { languages } from "./languages";
 import axios from "axios";
-import { Form, Select, Button, CodeContainer, CodeBlock } from "./styled";
+import { Form, Select, SelectContainer, Button, CodeContainer, CodeBlock } from "./styled";
 import Modal from "./Modal";
 import {useLoadingDots} from "./useHooks";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -61,33 +61,39 @@ function CodeForm() {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Select
-        value={language}
-        onChange={(e) => {
-          setLanguage(e.target.value);
-          setResponse("");
-        }}
-      >
-        {Object.keys(languages).map((lang) => (
-          <option key={lang} value={languages[lang]}>
-            {lang}
-          </option>
-        ))}
-      </Select>
-      <Select value={operation} onChange={(e) => setOperation(e.target.value)}>
-        {languageCapabilities ? (
-          languageCapabilities.map((capability) => (
-            <option key={capability} value={capability}>
-              {capitalize(capability.replace("_", " "))}
+    <Form onSubmit={handleSubmit}> 
+      <SelectContainer>
+        <h3>Language:　</h3>
+        <Select
+          value={language}
+          onChange={(e) => {
+            setLanguage(e.target.value);
+            setResponse("");
+          }}
+        >
+          {Object.keys(languages).map((lang) => (
+            <option key={lang} value={languages[lang]}>
+              {lang}
             </option>
-          ))
-        ) : (
-          <option>Loading operations...</option>
-        )}
-      </Select>
+          ))}
+        </Select>
+      </SelectContainer>
+      <SelectContainer>
+        <h3>Operation:　</h3>
+        <Select value={operation} onChange={(e) => setOperation(e.target.value)}>
+          {languageCapabilities ? (
+            languageCapabilities.map((capability) => (
+              <option key={capability} value={capability}>
+                {capitalize(capability.replace("_", " "))}
+              </option>
+            ))
+          ) : (
+            <option>Loading operations...</option>
+          )}
+        </Select>
+      </SelectContainer>
       <Button type="submit" disabled={loading}>
-        Generate Code
+        Generate
       </Button>
       {!isModalOpen && (
         <CodeContainer>

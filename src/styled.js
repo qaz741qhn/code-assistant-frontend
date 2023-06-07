@@ -18,7 +18,7 @@ export const Form = styled.form`
 `;
 
 export const Select = styled.select`
-  width: 200px;
+  width: 15vw;
   padding: 10px;
   font-size: 14px;
   border-radius: 5px;
@@ -26,12 +26,13 @@ export const Select = styled.select`
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   font-weight: bold;
   @media (max-width: 600px) {
-    width: 80%;
+    width: 100%;
   }
 `;
 
 export const Button = styled.button`
   padding: 10px 20px;
+  width: 15vw;
   font-size: 14px;
   font-weight: bold;
   color: #282c34;
@@ -50,7 +51,7 @@ export const Button = styled.button`
     cursor: not-allowed;
   }
   @media (max-width: 600px) {
-    width: 80%;
+    width: 40vw;
   }
 `;
 
@@ -97,7 +98,7 @@ export const TextArea = styled.textarea`
   border: 1px solid #ddd;
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   @media (max-width: 600px) {
-    width: 90%;
+    width: 95%;
     height: 250px;
     margin: 0 auto;
   }
@@ -115,7 +116,7 @@ export const RowContainer = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between; 
   align-items: center;
   gap: 10px;
   margin-left: 30px;
@@ -131,12 +132,16 @@ export const MessageContainer = styled.div`
 `;
 
 export const FixedContainer = styled.div`
-  height: 40px; 
+  height: 250px; 
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 10px;
   margin-top: 20px;
   visibility: ${props => props.visible ? 'visible' : 'hidden'};
+  @media (max-width: 600px) {
+    height: 40px;
+  }
 `;
 
 export const ModalContainer = styled.div`
@@ -150,6 +155,7 @@ export const ModalContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 `;
 
 export const ModalContent = styled.div`
@@ -231,4 +237,9 @@ export const ModalButtons = styled.div`
   display: flex;
   justify-content: center;
   gap: 10px;
+`;
+
+export const SelectContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `;

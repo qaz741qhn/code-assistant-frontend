@@ -13,13 +13,11 @@ function App() {
       <Router>
         <Navbar />
         <Header />
-        <div className="App-body">
           <Routes>
             <Route path="/generator" element={<CodeForm />} />
             <Route path="/converter" element={<CodeConverter />} />
             <Route path="/" element={<CodeForm />} />
           </Routes>
-        </div>
         <Footer />
       </Router>
     </div>

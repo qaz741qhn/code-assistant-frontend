@@ -8,10 +8,10 @@ function Header() {
   let headerText;
   switch (location.pathname) {
     case "/converter":
-      headerText = "Code Converter 🔄";
+      headerText = "Converter 🔄";
       break;
     default:
-      headerText = "Code Generator 💎";
+      headerText = "Generator 💎";
   }
 
   return <HeaderContainer>{headerText}</HeaderContainer>;
