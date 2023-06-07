@@ -3,6 +3,7 @@ import CodeForm from './CodeForm';
 import CodeConverter from './CodeConverter';
 import Header from './Header';
 import Navbar from './Navbar';
+import Footer from './Footer';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/converter" element={<CodeConverter />} />
           <Route path="/" element={<CodeForm />} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );

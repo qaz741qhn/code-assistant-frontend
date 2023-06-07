@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 export const Form = styled.form`
   display: flex;
@@ -96,7 +97,9 @@ export const TextArea = styled.textarea`
   border: 1px solid #ddd;
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   @media (max-width: 600px) {
-    width: 100%;
+    width: 90%;
+    height: 250px;
+    margin: 0 auto;
   }
 `;
 
@@ -116,6 +119,11 @@ export const ButtonContainer = styled.div`
   align-items: center;
   gap: 10px;
   margin-left: 30px;
+  @media (max-width: 600px) {
+    margin-left: 0;
+    padding: 10px;
+    gap: 20px;
+  }
 `;
 
 export const MessageContainer = styled.div`
@@ -149,5 +157,71 @@ export const ModalContent = styled.div`
   padding: 20px;
   border-radius: 4px;
   max-width: 500px;
+  @media (max-width: 600px) {
+    max-width: 90%;
+    max-height: 80%;
+    overflow: auto;
+    width: 100%;
+  }
+`;
+
+export const HeaderContainer = styled.div`
+background-color: rgb(1, 22, 39);
+color: #abb2bf;
+padding: 10px;
+font-family: "Courier New", monospace;
+font-size: 3.5em;
+font-weight: bold;
+text-align: center;
+`;
+
+export const Nav = styled.nav`
+  background-color: rgb(97, 218, 251, 0.2);
+  color: #abb2bf;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,.15);
+  font-family: "Courier New", monospace;
+  font-size: 22px;
+  @media (max-width: 600px) {
+    width: 100%;
+    justify-content: space-between;
+  }
+`;
+
+export const NavItem = styled(Link)`
+  text-decoration: none;
+  color: #abb2bf;
+  margin-left: 20px;
+  padding: 10px 20px;
+  &:hover {
+    background-color: rgb(1, 22, 39);
+    color: #61dafb;
+  }
+  &:disabled {
+    color: #ccc;
+    background-color: #eee;
+    cursor: not-allowed;
+  }
+  @media (max-width: 600px) {
+    margin-left: 0;
+  }
+`;
+
+export const FooterContainer = styled.footer`
+  background-color: rgb(1, 22, 39);
+  font-family: "Courier New", monospace;
+  color: #abb2bf;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  position: fixed;
+  bottom: 0;
   width: 100%;
+  @media (max-width: 600px) {
+    font-size: 12px; 
+  }
 `;
