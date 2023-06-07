@@ -15,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/generator" element={<CodeForm />} />
           <Route path="/converter" element={<CodeConverter />} />
+          <Route path="/" element={<CodeForm />} />
         </Routes>
       </Router>
     </div>

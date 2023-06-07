@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 const HeaderContainer = styled.div`
   background-color: rgb(1, 22, 39);
@@ -12,7 +13,18 @@ const HeaderContainer = styled.div`
 `;
 
 function Header() {
-  return <HeaderContainer>Code Generator 💎</HeaderContainer>;
+  const location = useLocation();
+
+  let headerText;
+  switch (location.pathname) {
+    case "/converter":
+      headerText = "Code Converter 💼";
+      break;
+    default:
+      headerText = "Code Generator 💎";
+  }
+
+  return <HeaderContainer>{headerText}</HeaderContainer>;
 }
 
 export default Header;

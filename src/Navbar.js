@@ -1,6 +1,3 @@
-// 寫一個風格適合（style.js）的navbar程式碼，連結有generator和converter兩個頁面，以下為相關程式碼：
-// // Path: src/Navbar.js
-
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -8,22 +5,23 @@ import { Link } from "react-router-dom";
 const Nav = styled.nav`
   background-color: rgb(1, 22, 39);
   color: #abb2bf;
-  padding: 10px;
+  padding: 10px 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,.15);
   font-family: "Courier New", monospace;
-  font-size: 16px;
+  font-size: 22px;
   @media (max-width: 600px) {
-    flex-direction: column;
-    align-items: flex-start;
+    justify-content: center;
   }
 `;
 
 const NavItem = styled(Link)`
   text-decoration: none;
   color: #abb2bf;
-  padding: 10px;
+  margin-left: 20px;
+  padding: 10px 20px;
   &:hover {
     background-color: #282c34;
     color: #61dafb;
@@ -34,14 +32,13 @@ const NavItem = styled(Link)`
     cursor: not-allowed;
   }
   @media (max-width: 600px) {
-    width: 80%;
+    margin-left: 0;
   }
 `;
 
 const Navbar = () => {
   return (
     <Nav>
-      <NavItem to="/">Home</NavItem>
       <NavItem to="/generator">Generator</NavItem>
       <NavItem to="/converter">Converter</NavItem>
     </Nav>

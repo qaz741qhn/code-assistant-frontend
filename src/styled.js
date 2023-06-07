@@ -87,6 +87,7 @@ export const CodeBlock = styled.div`
 `;
 
 export const TextArea = styled.textarea`
+  resize: none;
   width: 30%;
   height: 350px;
   padding: 10px;
@@ -101,8 +102,8 @@ export const TextArea = styled.textarea`
 
 export const RowContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 80%;
+  justify-content: center;
+  width: 100%;
   @media (max-width: 600px) {
     flex-direction: column;
   }
@@ -114,4 +115,39 @@ export const ButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
+  margin-left: 30px;
+`;
+
+export const MessageContainer = styled.div`
+  height: 20px;
+`;
+
+export const FixedContainer = styled.div`
+  height: 40px; 
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  visibility: ${props => props.visible ? 'visible' : 'hidden'};
+`;
+
+export const ModalContainer = styled.div`
+  position: fixed;
+  overflow-y: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 4px;
+  max-width: 500px;
+  width: 100%;
 `;

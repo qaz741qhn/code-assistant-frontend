@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { Form, TextArea, Button, Select, RowContainer, ButtonContainer } from './styled';
+import { Form, TextArea, Button, Select, RowContainer, ButtonContainer, MessageContainer, FixedContainer } from './styled';
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
+import useLoadingDots from './useHooks';
+import Modal from './Modal';
 
 const CodeConverter = () => {
   const [sourceCode, setSourceCode] = useState('');
@@ -11,31 +13,15 @@ const CodeConverter = () => {
   const [targetLanguage, setTargetLanguage] = useState('');
   const [convertedCode, setConvertedCode] = useState('');
   const [loading, setLoading] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState('Detecting...');
   const [converting, setConverting] = useState(false);
-  const [convertingMessage, setConvertingMessage] = useState('Converting...');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLoadingMessage((loadingMessage) => {
-        let dots = loadingMessage.split('.').length - 1;
-        dots = dots >= 3 ? 0 : dots + 1;
-        return 'Detecting' + '.'.repeat(dots);
-      });
-    }, 500);
-    return () => clearInterval(interval);
-  }, []);  
+  const loadingMessage = useLoadingDots('Detecting');
+  const convertingMessage = useLoadingDots('Converting');
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setConvertingMessage((convertingMessage) => {
-        let dots = convertingMessage.split('.').length - 1;
-        dots = dots >= 3 ? 0 : dots + 1;
-        return 'Converting' + '.'.repeat(dots);
-      });
-    }, 500);
-    return () => clearInterval(interval);
-  }, []);
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   const handleDetectLanguageAndAvailableLanguages = async (event) => {
     event.preventDefault();
@@ -61,6 +47,7 @@ const CodeConverter = () => {
       console.error("Error converting code: ", error);
     }
     setConverting(false);
+    toggleModal();
   };
 
   return (
@@ -72,21 +59,27 @@ const CodeConverter = () => {
           placeholder="Paste your source code here..."
         />
         <ButtonContainer>
-          <Button onClick={handleDetectLanguageAndAvailableLanguages}>Detect Language</Button>
-          {loading && <p>{loadingMessage}</p>}
-          {!loading && detectedLanguage && <p>Detected language: {detectedLanguage}</p>}
-          <Select value={targetLanguage || ""} onChange={e => setTargetLanguage(e.target.value)}>
-            <option value="">Please select</option>
-            {availableLanguages.map(lang => <option key={lang} value={lang}>{lang}</option>)}
-          </Select>
-          <Button onClick={handleConvertCode}>Convert Code</Button>
-          {converting && <p>{convertingMessage}</p>}
+          <Button onClick={handleDetectLanguageAndAvailableLanguages} disabled={loading}>Detect Language</Button>
+          <MessageContainer>
+            {loading && <p>{loadingMessage}</p>}
+            {!loading && detectedLanguage && <p>Detected language: {detectedLanguage}</p>}
+          </MessageContainer>
+          <FixedContainer visible={!!detectedLanguage}>
+            <Select value={targetLanguage || ""} onChange={e => setTargetLanguage(e.target.value)}>
+              <option value="">Please select</option>
+              {availableLanguages.map(lang => <option key={lang} value={lang}>{lang}</option>)}
+            </Select>
+            <Button onClick={handleConvertCode} disabled={converting}>Convert Code</Button>
+            {converting && <p>{convertingMessage}</p>}
+          </FixedContainer>
         </ButtonContainer>
-        <SyntaxHighlighter language={targetLanguage.toLowerCase()} style={nightOwl}>
-          {convertedCode
-            ? convertedCode
-            : "Your code will be displayed here."}
-        </SyntaxHighlighter>
+        <Modal isOpen={isModalOpen} onClose={toggleModal}>
+          <SyntaxHighlighter language={targetLanguage.toLowerCase()} style={nightOwl}>
+            {convertedCode
+              ? convertedCode
+              : "Your code will be displayed here."}
+          </SyntaxHighlighter>
+        </Modal>
       </RowContainer>
     </Form>
   );
