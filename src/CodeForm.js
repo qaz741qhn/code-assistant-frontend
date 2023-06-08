@@ -7,7 +7,7 @@ import {useLoadingDots} from "./useHooks";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-function CodeForm() {
+function CodeForm({apiURL}) {
   const [language, setLanguage] = useState("python"); // 預設語言為Python
   const [operation, setOperation] = useState("");
   const [response, setResponse] = useState("");
@@ -27,7 +27,7 @@ function CodeForm() {
     setResponse("");
     try {
       const result = await axios.post(
-        "https://code-assistant-backend.herokuapp.com/generate",
+        `${apiURL}/generate`,
         {
           operation: operation,
           language: language.toLowerCase(),
@@ -49,7 +49,7 @@ function CodeForm() {
   useEffect(() => {
     const fetchLanguageCapabilities = async () => {
       const result = await axios.get(
-        `https://code-assistant-backend.herokuapp.com/capabilities?language=${language.toLowerCase()}`
+        `${apiURL}/capabilities?language=${language.toLowerCase()}`
       );
       setLanguageCapabilities(result.data.capabilities);
     };

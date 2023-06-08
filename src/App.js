@@ -8,15 +8,16 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
+  const apiURL = "https://multi-api.herokuapp.com";
   return (
     <div className="App">
       <Router>
         <Navbar />
         <Header />
           <Routes>
-            <Route path="/generator" element={<CodeForm />} />
-            <Route path="/converter" element={<CodeConverter />} />
-            <Route path="/" element={<CodeForm />} />
+            <Route path="/generator" element={<CodeForm apiURL={apiURL} />} />
+            <Route path="/converter" element={<CodeConverter apiURL={apiURL} />} />
+            <Route path="/" element={<CodeForm apiURL={apiURL} />} />
           </Routes>
         <Footer />
       </Router>

@@ -6,7 +6,7 @@ import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
 import {useLoadingDots} from './useHooks';
 import Modal from './Modal';
 
-const CodeConverter = () => {
+const CodeConverter = ({apiURL}) => {
   const [sourceCode, setSourceCode] = useState('');
   const [detectedLanguage, setDetectedLanguage] = useState('');
   const [availableLanguages, setAvailableLanguages] = useState([]);
@@ -27,7 +27,7 @@ const CodeConverter = () => {
     event.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("https://code-assistant-backend.herokuapp.com/detect_available_languages", { source_code: sourceCode });
+      const response = await axios.post(`${apiURL}/detect_available_languages`, { source_code: sourceCode });
       setDetectedLanguage(response.data.detected_language);
       setAvailableLanguages(response.data.available_languages);
     } catch (error) {
@@ -40,7 +40,7 @@ const CodeConverter = () => {
     event.preventDefault();
     setConverting(true);
     try {
-      const response = await axios.post("https://code-assistant-backend.herokuapp.com/convert_code", { source_code: sourceCode, target_language: targetLanguage });
+      const response = await axios.post(`${apiURL}/convert_code`, { source_code: sourceCode, target_language: targetLanguage });
       if (response.status === 200) {
         setConvertedCode(response.data.converted_code);
         toggleModal();
